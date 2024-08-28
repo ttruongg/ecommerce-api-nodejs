@@ -5,7 +5,7 @@ import morgan from "morgan";
 import mongoose from "mongoose";
 const app: Application = express();
 
-const { PORT, API_URL, CONNECTTION_STRING } = process.env;
+const { PORT, CONNECTTION_STRING } = process.env;
 
 app.use(bodyParser.json());
 app.use(morgan("tiny"));
