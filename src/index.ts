@@ -5,7 +5,7 @@ import morgan from "morgan";
 import mongoose from "mongoose";
 const app: Application = express();
 
-const { PORT, CONNECTTION_STRING } = process.env;
+const { PORT, CONNECTION_STRING } = process.env;
 
 app.use(bodyParser.json());
 app.use(morgan("tiny"));
@@ -17,11 +17,11 @@ app.listen(PORT, () => {
   console.log("Server is running at port: " + PORT);
 });
 
-if (!CONNECTTION_STRING) {
+if (!CONNECTION_STRING) {
   throw new Error("Database connection string is not defined");
 }
 
-mongoose.connect(CONNECTTION_STRING)
+mongoose.connect(CONNECTION_STRING)
   .then(() => console.log("Connected to Database"))
   .catch((error: Error) => { console.log(`Error: ${error}`) })
 
