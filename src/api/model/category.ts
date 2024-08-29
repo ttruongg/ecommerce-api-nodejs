@@ -11,4 +11,6 @@ const categorySchema = new Schema({
     color: {
         type: mongoose.Schema.Types.String
     }
-})
+});
+
+export const Category = mongoose.model("Category", categorySchema);
