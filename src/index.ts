@@ -3,12 +3,14 @@ import bodyParser from "body-parser";
 import "dotenv/config";
 import morgan from "morgan";
 import mongoose from "mongoose";
+import routes from "./api/routes/index";
 const app: Application = express();
 
 const { PORT, CONNECTION_STRING } = process.env;
 
 app.use(bodyParser.json());
 app.use(morgan("tiny"));
+app.use(routes);
 app.get("/", (req: Request, res: Response) => {
   res.send("Welcome to Ecommerce-Api-Nodejs server");
 });
