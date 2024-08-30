@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
-import "../model/product.js";
-import { Category } from "../model/category.js";
+import { Category } from "../model/category";
 import { matchedData, validationResult } from "express-validator";
 
 export const getListCategory = async (request: Request, response: Response) => {
@@ -20,7 +19,7 @@ export const addCategory = async (request: Request, response: Response) => {
     const newCategory = new Category(data);
 
     try {
-        const saveCategory = newCategory.save();
+        const saveCategory = await newCategory.save();
         return response.status(201).send(saveCategory);
     } catch(error) {
         return response.status(404).send({error: error});
