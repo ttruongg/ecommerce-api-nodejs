@@ -1,12 +1,14 @@
-export const addCategory_Validation_Schema = {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.addCategory_Validation_Schema = void 0;
+exports.addCategory_Validation_Schema = {
     name: {
         isLength: {
             options: {
                 min: 5,
                 max: 32
             },
-            errorMessage:
-                "Name must be at least 5 characters with a max of 32 characters",
+            errorMessage: "Name must be at least 5 characters with a max of 32 characters",
         },
         notEmpty: {
             errorMessage: "Name cannot be empty",
@@ -25,5 +27,4 @@ export const addCategory_Validation_Schema = {
             errorMessage: "color must be a string",
         }
     }
-
-}
+};
