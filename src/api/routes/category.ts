@@ -2,7 +2,7 @@ import { Router } from "express";
 import * as categorytHandler from "../controller/categoryHandler";
 import { checkSchema } from "express-validator";
 import * as validation from "../utils/validationSchema";
-const router = Router();
+const router: Router = Router();
 
 router.get("/api/v1/category", categorytHandler.getListCategory);
 router.get("/api/v1/category/:id", categorytHandler.getCategoryById);

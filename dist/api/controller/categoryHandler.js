@@ -24,7 +24,7 @@ const getCategoryById = (request, response) => __awaiter(void 0, void 0, void 0,
     try {
         const category = yield category_1.Category.findById(category_id);
         if (category) {
-            return response.status(200).json({ sucess: true, category: category });
+            return response.status(200).json({ category: category });
         }
         else {
             return response.status(404).json({ sucess: false, msg: "category not found!" });
@@ -66,6 +66,21 @@ const deleteCategory = (request, response) => __awaiter(void 0, void 0, void 0, 
     }
 });
 exports.deleteCategory = deleteCategory;
-const updateCategory = (request, response) => {
-};
+const updateCategory = (request, response) => __awaiter(void 0, void 0, void 0, function* () {
+    const category_id = request.params.id;
+    const result = (0, express_validator_1.validationResult)(request);
+    if (!result.isEmpty())
+        return response.status(400).json({ erorr: result.array() });
+    const data = (0, express_validator_1.matchedData)(request);
+    try {
+        const category = yield category_1.Category.findByIdAndUpdate(category_id, data, { new: true });
+        console.log(category);
+        return category ?
+            response.status(200).json({ msg: "updated successfully" }) :
+            response.status(400).json({ msg: "category not found!" });
+    }
+    catch (error) {
+        return response.status(400).json({ error: error });
+    }
+});
 exports.updateCategory = updateCategory;

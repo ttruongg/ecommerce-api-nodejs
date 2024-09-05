@@ -23,7 +23,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.product = void 0;
+exports.Product = void 0;
 const mongoose_1 = __importStar(require("mongoose"));
 const productSchema = new mongoose_1.Schema({
     name: {
@@ -77,4 +77,4 @@ const productSchema = new mongoose_1.Schema({
         default: Date.now()
     }
 });
-exports.product = mongoose_1.default.model("product", productSchema);
+exports.Product = mongoose_1.default.model("product", productSchema);
