@@ -31,4 +31,8 @@ const router = (0, express_1.Router)();
 router.get("/api/v1/products", productController.getAll_Product);
 router.get("/api/v1/product/:id", productController.getProductById);
 router.post("/api/v1/add-product", (0, express_validator_1.checkSchema)(validationSchema_1.product_Schema), productController.addProduct);
+router.put("/api/v1/edit-product/:id", (0, express_validator_1.checkSchema)(validationSchema_1.product_Schema), productController.updateProduct);
+router.delete("/api/v1/delete-product/:id", productController.deleteProduct);
+router.get("/api/v1/products/count", productController.countProduct);
+router.get("/api/v1/products/featured/:count", productController.productsFeatured);
 exports.default = router;
