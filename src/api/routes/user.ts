@@ -4,6 +4,10 @@ import { user_Schema } from "../utils/validationSchema";
 import { checkSchema } from "express-validator";
 const router: Router = Router();
 
-router.post("/api/v1/sign-up", checkSchema(user_Schema), userController.registerUser);
+
+router.put("/api/v1/update-user/:id", checkSchema(user_Schema), userController.updateUser);
+
+
+
 
 export default router;
