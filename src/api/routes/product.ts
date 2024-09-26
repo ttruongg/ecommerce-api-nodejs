@@ -5,11 +5,11 @@ import * as productController from "../controller/productController";
 
 const router: Router = Router();
 
-router.get("/api/v1/products", productController.getAll_Product);
-router.get("/api/v1/product/:id", productController.getProductById);
-router.post("/api/v1/add-product", checkSchema(product_Schema), productController.addProduct);
-router.put("/api/v1/edit-product/:id", checkSchema(product_Schema), productController.updateProduct);
-router.delete("/api/v1/delete-product/:id", productController.deleteProduct);
-router.get("/api/v1/products/count", productController.countProduct);
-router.get("/api/v1/products/featured/:count", productController.productsFeatured);
+router.get("/", productController.getAll_Product);
+router.get("/:id", productController.getProductById);
+router.post("/", checkSchema(product_Schema), productController.addProduct);
+router.put("/:id", checkSchema(product_Schema), productController.updateProduct);
+router.delete("/:id", productController.deleteProduct);
+router.get("/count", productController.countProduct);
+router.get("/featured/:count", productController.productsFeatured);
 export default router;
