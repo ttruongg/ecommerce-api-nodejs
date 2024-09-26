@@ -7,5 +7,9 @@ export const hashingPassword = (password: string): string => {
     return brcypt.hashSync(password, salt);
 };
 
+export const comparePassword = (password: string, hashedPassword: string) => {
+    return brcypt.compareSync(password, hashedPassword);
+}
+
 
 

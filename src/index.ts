@@ -1,16 +1,25 @@
-import express, { Request, Response, Application, request } from "express";
+import express, { Request, Response, Application, NextFunction } from "express";
 import bodyParser from "body-parser";
 import "dotenv/config";
 import morgan from "morgan";
 import mongoose from "mongoose";
 import routes from "./api/routes/index";
+import { authJwt } from "./api/helpers/jwt";
+import { error_Handler } from "./api/helpers/error-handler";
 const app: Application = express();
 
 const { PORT, CONNECTION_STRING } = process.env;
 
+//middleware
 app.use(bodyParser.json());
 app.use(morgan("tiny"));
+app.use(authJwt());
+app.use(error_Handler);
+
+//routes
 app.use(routes);
+
+
 app.get("/", (req: Request, res: Response) => {
   res.send("Welcome to Ecommerce-Api-Nodejs server");
 });
