@@ -83,15 +83,20 @@ export const deleteProduct = async (request: Request, response: Response) => {
 };
 
 export const countProduct = async (request: Request, response: Response) => {
-    const productCount = await Product.countDocuments();
+    try {
+        const productCount = await Product.countDocuments();
 
-    if (!productCount) {
-        return response.status(500).send({ success: false });
+        if (!productCount) {
+            return response.status(500).send({ success: false, message: "No products found" });
+        }
+
+        response.status(200).send({
+            productCount: productCount
+        });
+    } catch (error) {
+        response.status(500).send({ sucess: false, message: "Error counting products" })
     }
 
-    response.status(200).send({
-        productCount: productCount
-    });
 };
 
 export const productsFeatured = async (request: Request, response: Response) => {
