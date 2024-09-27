@@ -20,19 +20,24 @@ export function authJwt() {
     })
 };
 
-async function isRevoked(req: JWTRequest, token: Jwt | undefined): Promise<boolean> {
+async function isRevoked(request: JWTRequest, token: Jwt | undefined): Promise<boolean> {
 
     if (!token) {
         return true;
     }
 
-
     const payload = token.payload as JwtPayload;
-    if (!payload.isAdmin) {
-        return true;
+    if (payload.isAdmin) {
+        return false;
     }
 
-    return false;
+    const userId = request.params.id;
+    const userIdFromToken = payload.user;
+    
+    if (userId === userIdFromToken)
+        return false;
+
+    return true;
 };
 
 

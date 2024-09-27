@@ -46,3 +46,14 @@ export const deleteUser = async (request: Request, response: Response) => {
         return response.status(400).send({ msg: error });
     }
 };
+
+export const countUsers = async (request: Request, response: Response) => {
+    try {
+        const countUsers = await User.countDocuments();
+        return countUsers ?
+            response.status(200).send({ userCount: countUsers }) :
+            response.status(404).send("No users found");
+    } catch (err) {
+        return response.status(500).send("Error when counting users");
+    }
+}

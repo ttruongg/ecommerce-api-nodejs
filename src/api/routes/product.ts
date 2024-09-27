@@ -10,6 +10,6 @@ router.get("/:id", productController.getProductById);
 router.post("/", checkSchema(product_Schema), productController.addProduct);
 router.put("/:id", checkSchema(product_Schema), productController.updateProduct);
 router.delete("/:id", productController.deleteProduct);
-router.get("/count", productController.countProduct);
+router.get("/get/count", productController.countProduct);
 router.get("/featured/:count", productController.productsFeatured);
 export default router;
