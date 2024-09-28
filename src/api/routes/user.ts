@@ -6,6 +6,7 @@ const router: Router = Router();
 
 router.get("/", userController.getListOfUser);
 router.get("/:id", userController.getUserById);
+router.get("/get/count", userController.countUsers);
 router.put("/:id", checkSchema(user_Schema), userController.updateUser);
 router.delete("/:id", userController.deleteUser);
 
