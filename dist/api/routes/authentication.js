@@ -24,13 +24,10 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
-const categorytHandler = __importStar(require("../controller/categoryHandler"));
 const express_validator_1 = require("express-validator");
-const validation = __importStar(require("../utils/validationSchema"));
+const validationSchema_1 = require("../utils/validationSchema");
+const authentication = __importStar(require("../controller/authentication"));
 const router = (0, express_1.Router)();
-router.get("/", categorytHandler.getListCategory);
-router.get("/:id", categorytHandler.getCategoryById);
-router.post("/", (0, express_validator_1.checkSchema)(validation.addCategory_Validation_Schema), categorytHandler.addCategory);
-router.delete("/:id", categorytHandler.deleteCategory);
-router.put("/:id", (0, express_validator_1.checkSchema)(validation.addCategory_Validation_Schema), categorytHandler.updateCategory);
+router.post("/api/v1/auth/register", (0, express_validator_1.checkSchema)(validationSchema_1.user_Schema), authentication.registerUser);
+router.post("/api/v1/auth/login", authentication.logInUser);
 exports.default = router;

@@ -23,14 +23,15 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const express_1 = require("express");
-const categorytHandler = __importStar(require("../controller/categoryHandler"));
-const express_validator_1 = require("express-validator");
-const validation = __importStar(require("../utils/validationSchema"));
-const router = (0, express_1.Router)();
-router.get("/", categorytHandler.getListCategory);
-router.get("/:id", categorytHandler.getCategoryById);
-router.post("/", (0, express_validator_1.checkSchema)(validation.addCategory_Validation_Schema), categorytHandler.addCategory);
-router.delete("/:id", categorytHandler.deleteCategory);
-router.put("/:id", (0, express_validator_1.checkSchema)(validation.addCategory_Validation_Schema), categorytHandler.updateCategory);
-exports.default = router;
+exports.comparePassword = exports.hashingPassword = void 0;
+const brcypt = __importStar(require("bcrypt"));
+const saltRound = 10;
+const hashingPassword = (password) => {
+    const salt = brcypt.genSaltSync(saltRound);
+    return brcypt.hashSync(password, salt);
+};
+exports.hashingPassword = hashingPassword;
+const comparePassword = (password, hashedPassword) => {
+    return brcypt.compareSync(password, hashedPassword);
+};
+exports.comparePassword = comparePassword;

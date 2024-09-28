@@ -97,13 +97,18 @@ const deleteProduct = (request, response) => __awaiter(void 0, void 0, void 0, f
 });
 exports.deleteProduct = deleteProduct;
 const countProduct = (request, response) => __awaiter(void 0, void 0, void 0, function* () {
-    const productCount = yield product_1.Product.countDocuments();
-    if (!productCount) {
-        return response.status(500).send({ success: false });
+    try {
+        const productCount = yield product_1.Product.countDocuments();
+        if (!productCount) {
+            return response.status(500).send({ success: false, message: "No products found" });
+        }
+        response.status(200).send({
+            productCount: productCount
+        });
     }
-    response.status(200).send({
-        productCount: productCount
-    });
+    catch (error) {
+        response.status(500).send({ sucess: false, message: "Error counting products" });
+    }
 });
 exports.countProduct = countProduct;
 const productsFeatured = (request, response) => __awaiter(void 0, void 0, void 0, function* () {

@@ -9,10 +9,16 @@ require("dotenv/config");
 const morgan_1 = __importDefault(require("morgan"));
 const mongoose_1 = __importDefault(require("mongoose"));
 const index_1 = __importDefault(require("./api/routes/index"));
+const jwt_1 = require("./api/helpers/jwt");
+const error_handler_1 = require("./api/helpers/error-handler");
 const app = (0, express_1.default)();
 const { PORT, CONNECTION_STRING } = process.env;
+//middleware
 app.use(body_parser_1.default.json());
 app.use((0, morgan_1.default)("tiny"));
+app.use((0, jwt_1.authJwt)());
+app.use(error_handler_1.error_Handler);
+//routes
 app.use(index_1.default);
 app.get("/", (req, res) => {
     res.send("Welcome to Ecommerce-Api-Nodejs server");

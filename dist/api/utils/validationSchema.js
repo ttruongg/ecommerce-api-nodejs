@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.product_Schema = exports.addCategory_Validation_Schema = void 0;
+exports.user_Schema = exports.product_Schema = exports.addCategory_Validation_Schema = void 0;
 const mongoose_1 = __importDefault(require("mongoose"));
 exports.addCategory_Validation_Schema = {
     name: {
@@ -112,5 +112,56 @@ exports.product_Schema = {
     },
     dateCreated: {
         optional: true,
+    }
+};
+exports.user_Schema = {
+    name: {
+        notEmpty: {
+            errorMessage: "name cannot empty"
+        },
+        isString: {
+            errorMessage: "name should be a string"
+        }
+    },
+    email: {
+        isEmail: {
+            errorMessage: "Must be a valid-email address",
+        },
+        notEmpty: {
+            errorMessage: "email cannot empty",
+        },
+    },
+    password: {
+        isLength: {
+            options: {
+                min: 8,
+                max: 32
+            },
+            errorMessage: "password should be have between 8 and 32 characters"
+        }
+    },
+    phone: {
+        isLength: {
+            options: { min: 10, max: 10 },
+            errorMessage: "Phone number must be exactly 10 digits"
+        },
+    },
+    isAdmin: {
+        optional: true
+    },
+    street: {
+        optional: true
+    },
+    apartment: {
+        optional: true
+    },
+    city: {
+        optional: true
+    },
+    zip: {
+        optional: true
+    },
+    country: {
+        optional: true
     }
 };
