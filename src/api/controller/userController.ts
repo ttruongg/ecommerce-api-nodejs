@@ -16,7 +16,7 @@ export const getUserById = async (request: Request, response: Response) => {
 
 export const getListOfUser = async (request: Request, response: Response) => {
     const users = await User.find().select("-password");
-    if (!users) return response.status(400).send("categories is empty");
+    if (!users) return response.status(400).send("users not found!");
     return response.status(200).send(users);
 };
 
