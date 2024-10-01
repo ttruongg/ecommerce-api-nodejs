@@ -5,7 +5,7 @@ import { matchedData, validationResult } from "express-validator";
 export const getListCategory = async (request: Request, response: Response) => {
     const categoryList = await Category.find();
 
-    if (!categoryList)
+    if (!categoryList || categoryList.length === 0)
         response.status(400).json({ categoryList: "empty" });
 
     response.status(200).send(categoryList);
