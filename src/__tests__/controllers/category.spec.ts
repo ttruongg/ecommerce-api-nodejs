@@ -3,6 +3,7 @@ import * as categoryController from "../../api/controller/categoryHandler";
 import { Category } from "../../api/model/category";
 import * as validator from "express-validator";
 import { Request } from "express-serve-static-core";
+
 jest.mock("../../api/model/category");
 
 jest.mock("express-validator", () => ({
@@ -11,8 +12,8 @@ jest.mock("express-validator", () => ({
         array: jest.fn(() => [{ msg: "Invalid field" }]),
     })),
     matchedData: jest.fn(() => ({
-        name: "name",
-        icon: "icon",
+        name: "computers",
+        icon: "icon-computer",
         color: "#050505"
 
     }))
@@ -58,9 +59,9 @@ describe("return list of categories", () => {
 });
 
 const mockCategory = {
-    _id: "1",
     name: "computers",
     icon: "icon-computer",
+    color: "#050505"
 }
 describe("get category by id", () => {
     afterEach(() => {
@@ -93,6 +94,7 @@ describe(" add new category", () => {
     afterEach(() => {
         jest.clearAllMocks();
     });
+
     const mockRequest = {} as Request;
     it("return status of 400 when there are errors", () => {
         categoryController.addCategory(mockRequest, mockResponse);
@@ -104,9 +106,62 @@ describe(" add new category", () => {
     });
 
     it("should return status of 201 when category created", async () => {
-        await categoryController.addCategory(mockRequest, mockResponse);
-        expect(validator.matchedData).toHaveBeenCalledWith(mockRequest);
 
-    })
+        jest.spyOn(validator, "validationResult").mockReturnValueOnce({
+            isEmpty: jest.fn().mockReturnValue(true),
+            array: jest.fn(),  // Mock method array
+            mapped: jest.fn(), // Mock method mapped
+            formatWith: jest.fn(), // Mock method formatWith
+            throw: jest.fn()  // Mock method throw
+        } as unknown as validator.Result<validator.ValidationError>);
+
+        const saveMethod = jest
+            .spyOn(Category.prototype, "save")
+            .mockResolvedValueOnce({
+                id: 1,
+                name: "computers",
+                icon: "icon-computer",
+                color: "#050505"
+            });
+
+        await categoryController.addCategory(mockRequest, mockResponse);
+        expect(validator.matchedData).toHaveBeenCalled();
+        expect(validator.matchedData).toHaveBeenCalledWith(mockRequest);
+        expect(Category).toHaveBeenCalledWith({
+            name: "computers",
+            icon: "icon-computer",
+            color: "#050505"
+        });
+        expect(saveMethod).toHaveBeenCalled();
+        expect(mockResponse.status).toHaveBeenCalledWith(201);
+        expect(mockResponse.send).toHaveBeenCalledWith({
+            id: 1,
+            name: "computers",
+            icon: "icon-computer",
+            color: "#050505"
+        });
+
+
+
+    });
+
+    it("return status of 400 when database fails to save category", async () => {
+        jest.spyOn(validator, "validationResult").mockReturnValueOnce({
+            isEmpty: jest.fn().mockReturnValue(true),
+            array: jest.fn(),  // Mock method array
+            mapped: jest.fn(), // Mock method mapped
+            formatWith: jest.fn(), // Mock method formatWith
+            throw: jest.fn()  // Mock method throw
+        } as unknown as validator.Result<validator.ValidationError>);
+
+
+        const saveMethod = jest
+            .spyOn(Category.prototype, "save")
+            .mockImplementationOnce(() => Promise.reject("fail to save category"));
+        await categoryController.addCategory(mockRequest, mockResponse);
+        expect(saveMethod).toHaveBeenCalled();
+        expect(mockResponse.status).toHaveBeenCalledWith(400);
+        expect(mockResponse.send).toHaveBeenCalledWith({ error: "fail to save category" });
+    });
 
 })

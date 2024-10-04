@@ -36,7 +36,7 @@ export const addCategory = async (request: Request, response: Response) => {
         const saveCategory = await newCategory.save();
         return response.status(201).send(saveCategory);
     } catch (error) {
-        return response.status(404).send({ error: error });
+        return response.status(400).send({ error: error });
     }
 };
 
