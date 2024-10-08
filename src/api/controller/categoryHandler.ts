@@ -58,14 +58,13 @@ export const deleteCategory = async (request: Request, response: Response) => {
 export const updateCategory = async (request: Request, response: Response) => {
     const category_id = request.params.id;
     const result = validationResult(request);
-    if (!result.isEmpty()) return response.status(400).json({ erorr: result.array() });
+    if (!result.isEmpty()) return response.status(400).json({ error: result.array() });
     const data = matchedData(request);
     try {
-        const category = await Category.findByIdAndUpdate(category_id, data, { new: true});
-        console.log(category);
+        const category = await Category.findByIdAndUpdate(category_id, data, { new: true });
         return category ?
             response.status(200).json({ msg: "updated successfully" }) :
-            response.status(400).json({ msg: "category not found!" });
+            response.status(404).json({ msg: "category not found!" });
     } catch (error) {
         return response.status(400).json({ error: error });
     }
