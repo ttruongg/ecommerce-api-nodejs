@@ -3,7 +3,7 @@ import { Jwt, JwtPayload } from "jsonwebtoken";
 
 export function authJwt() {
     const secret = process.env.secret;
-    if (!secret) throw new Error("secret undefined");
+    if (!secret) throw new Error("undefined");
 
     return expressjwt({
         secret,
@@ -26,18 +26,13 @@ async function isRevoked(request: JWTRequest, token: Jwt | undefined): Promise<b
         return true;
     }
 
-    const payload = token.payload as JwtPayload;
+    const payload = token.payload as JwtPayload & { isAdmin: boolean };
+
     if (payload.isAdmin) {
         return false;
     }
 
-    const userId = request.params.id;
-    const userIdFromToken = payload.user;
-    
-    if (userId === userIdFromToken)
-        return false;
-
-    return true;
+    return false;
 };
 
 
