@@ -28,7 +28,7 @@ exports.getUserById = getUserById;
 const getListOfUser = (request, response) => __awaiter(void 0, void 0, void 0, function* () {
     const users = yield user_1.User.find().select("-password");
     if (!users)
-        return response.status(400).send("categories is empty");
+        return response.status(400).send("users not found!");
     return response.status(200).send(users);
 });
 exports.getListOfUser = getListOfUser;
