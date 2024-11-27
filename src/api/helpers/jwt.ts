@@ -8,7 +8,7 @@ export function authJwt() {
     return expressjwt({
         secret,
         algorithms: ["HS256"],
-        isRevoked: isRevoked,
+        //isRevoked: isRevoked,
     }).unless({
         path: [
             { url: /\/public\/uploads(.*)/, methods: ['GET', 'OPTIONS'] },
@@ -20,20 +20,6 @@ export function authJwt() {
     })
 };
 
-async function isRevoked(request: JWTRequest, token: Jwt | undefined): Promise<boolean> {
-
-    if (!token) {
-        return true;
-    }
-
-    const payload = token.payload as JwtPayload & { isAdmin: boolean };
-
-    if (payload.isAdmin) {
-        return false;
-    }
-
-    return false;
-};
 
 
 
