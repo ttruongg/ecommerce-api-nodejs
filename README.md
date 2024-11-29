@@ -1,14 +1,74 @@
-## Ecommerce api
+## E-Commerce Web API
 <hr>
+
+## Introduction
 
 This project is an Ecommerce API built using Node.js. It provides a set of endpoints for managing users, products, categories, orders, and authentication using JWT. The API allows clients to perform CRUD operations on products, manage user authentication and authorization, and handle customer orders. 
+
 <hr>
 
-<h3> Features: </h3>
-<ul>
-  <h4>User management</h4>
-  <li>Register User: Create a new user with unique credentials.</li>
-  <li>Login User: Authenticate users using JWT.</li>
-  <li>Get All Users: Retrieve a list of all registered users.</li>
-  <li>User Profile: Retrieve and update the logged-in user's profile.</li>
-</ul>
+## Run
+<h4>Install</h4>
+
+```bash
+git install
+
+```
+## Start API
+```bash
+npm start
+
+```
+
+## Routes
+
+<h4>Users</h4>
+
+| Methods |  URLs  | 
+|:-----|:--------:|
+| GET   | /api/v1/users |
+| GET   | /api/v1/users/:id |
+| POST   | /api/v1/users |
+| PUT   | /api/v1/users/:id |
+| DELETE   | /api/v1/users/:id |
+| GET   | /api/v1/users/get/count |users count
+
+<h4>Orders</h4>
+
+| Methods |  URLs  | 
+|:-----|:--------:|
+| GET   | /api/v1/orders |
+| GET   | /api/v1/orders/:id |
+| POST   | /api/v1/orders |
+| PUT   | /api/v1/orders/:id |
+| DELETE   | /api/v1/orders/:id |
+| GET   | /api/v1/orders/get/count | orders count
+
+<h4>Register new user</h4>
+
+| Methods |  URLs  | 
+|:-----|:--------:|
+| POST   | /api/v1/users/register |
+
+<h4>Login user</h4>
+To login the user and get the auth token:
+
+| Methods |  URLs  | 
+|:-----|:--------:|
+| POST   | /api/v1/users/login |
+
+<h4>Products</h4>
+
+| Methods |  URLs  | 
+|:-----|:--------:|
+| GET   | /api/v1/products |
+| GET   | /api/v1/products/:id |
+| POST   | /api/v1/products |
+| PUT   | /api/v1/products/:id |
+| DELETE   | /api/v1/products/:id |
+| PUT    | /api/v1/products/gallery-images/:id | gallery-images
+| GET   | /api/v1/products/get/featured/:count | featured products
+| GET   | /api/v1/products/get/count | products count  
+
+<hr>
+<h3>Your feedback and contributions are welcome!</h3>
