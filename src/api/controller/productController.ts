@@ -4,6 +4,7 @@ import { Product } from "../model/product";
 import { Category } from "../model/category";
 
 
+
 export const getAll_Product = async (request: Request, response: Response) => {
     // localhost:8000/api/v1/products?categories=, 12312346464
 
@@ -39,7 +40,13 @@ export const addProduct = async (request: Request, response: Response) => {
 
     const result = validationResult(request);
     if (!result.isEmpty()) return response.status(400).send({ error: result.array() });
+
     const data = matchedData(request);
+    const filename = request.file?.filename;
+    const basePath = `${request.protocol}://${request.get('host')}/public/uploads/`;
+
+    // "http://localhost:3000/public/upload/image-2323232"
+    data.image = `${basePath}${filename}`;
     const newProduct = new Product(data);
 
     try {
