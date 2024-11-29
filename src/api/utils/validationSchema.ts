@@ -56,7 +56,8 @@ export const product_Schema = {
     image: {
         isString: {
             errorMessage: "The url of image should be a string",
-        }
+        },
+        optional: true
     },
     images: {
         isString: {
